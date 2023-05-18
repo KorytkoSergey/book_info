@@ -1,6 +1,6 @@
 from book import models, forms
 from django.db.models import Q
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, CreateView
 from .models import Genre, Author, Book
 
 
@@ -27,8 +27,6 @@ class TotalList(TitleMixin, ListView):
         if title:
             return qs.filter(title__icontains=title)
         return qs
-
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -81,8 +79,6 @@ class InfoCard(TitleMixin, DetailView):
         return queryset
 
 
-
-
 class SearchBook(TitleMixin, ListView):
     model = models.Book
     template_name = 'book/search_book.html'
@@ -91,16 +87,23 @@ class SearchBook(TitleMixin, ListView):
     def get_queryset(self):
         title = self.request.GET.get('title')
         year_publishing = self.request.GET.get('year_publishing')
+        publishing_house = self.request.GET.get('publishing_house')
+        author = self.request.GET.get('author')
         qs = models.Book.objects.all()
-        if title or year_publishing:
-            # Use Q objects to perform OR queries on multiple fields
-            filter_q = Q()
+        filter_q = Q()
+        if title or year_publishing or publishing_house or author:
             if title:
                 filter_q |= Q(title__icontains=title)
             if year_publishing:
                 filter_q |= Q(year_publishing=year_publishing)
-            return qs.filter(filter_q)
-        return qs
+            if publishing_house:
+                filter_q |= Q(publishing_house__icontains=publishing_house)
+            if author:
+                author_parts = author.split()
+                for part in author_parts:
+                    filter_q |= Q(author_id__name__icontains=part)
+                    filter_q |= Q(author_id__surname__icontains=part)
+        return qs.filter(filter_q)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -128,6 +131,7 @@ class SearchAuthor(TitleMixin, ListView):
         print(context)
         return context
 
+
 class SearchGenre(TitleMixin, ListView):
     model = models.Genre
     template_name = 'book/search_genre.html'
@@ -146,3 +150,4 @@ class SearchGenre(TitleMixin, ListView):
         context['form'] = forms.BookSearch(self.request.GET or None)
         print(context)
         return context
+
