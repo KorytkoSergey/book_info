@@ -25,6 +25,9 @@
   <component name="DBNavigator.Project.DatasetFilterManager">
     <filter-actions connection-id="a52edb67-54ad-45ef-8ded-a327807fabcb" dataset="main.book_author" active-filter-id="EMPTY_FILTER" />
   </component>
+  <component name="DBNavigator.Project.ExecutionManager">
+    <retain-sticky-names value="false" />
+  </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
     <filters />

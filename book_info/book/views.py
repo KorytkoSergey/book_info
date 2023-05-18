@@ -1,4 +1,5 @@
 from book import models, forms
+from django.db.models import Q
 from django.views.generic import DetailView, ListView
 from .models import Genre, Author, Book
 
@@ -82,14 +83,59 @@ class InfoCard(TitleMixin, DetailView):
 
 
 
-class BookList(TitleMixin, ListView):
+class SearchBook(TitleMixin, ListView):
     model = models.Book
-    template_name = 'book/book_list.html'
+    template_name = 'book/search_book.html'
     title = 'Список книг'
 
     def get_queryset(self):
         title = self.request.GET.get('title')
+        year_publishing = self.request.GET.get('year_publishing')
         qs = models.Book.objects.all()
+        if title or year_publishing:
+            # Use Q objects to perform OR queries on multiple fields
+            filter_q = Q()
+            if title:
+                filter_q |= Q(title__icontains=title)
+            if year_publishing:
+                filter_q |= Q(year_publishing=year_publishing)
+            return qs.filter(filter_q)
+        return qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = forms.BookSearch(self.request.GET or None)
+        print(context)
+        return context
+
+
+class SearchAuthor(TitleMixin, ListView):
+    model = models.Author
+    template_name = 'book/search_author.html'
+    title = 'Список авторов'
+
+    def get_queryset(self):
+        title = self.request.GET.get('title')
+        qs = models.Author.objects.all()
+        if title:
+            return qs.filter(title__icontains=title)
+        print("Title:", title)
+        return qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = forms.BookSearch(self.request.GET or None)
+        print(context)
+        return context
+
+class SearchGenre(TitleMixin, ListView):
+    model = models.Genre
+    template_name = 'book/search_genre.html'
+    title = 'Список жанров'
+
+    def get_queryset(self):
+        title = self.request.GET.get('title')
+        qs = models.Genre.objects.all()
         if title:
             return qs.filter(title__icontains=title)
         print("Title:", title)

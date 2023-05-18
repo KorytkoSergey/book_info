@@ -13,5 +13,7 @@ urlpatterns = [
     path('author_list/', views.TotalList.as_view(), {'list_type': 'author_list'}, name='author_list'),
     path('genre_list/', views.TotalList.as_view(), {'list_type': 'genre_list'}, name='genre_list'),
     path('author/<slug:slug>/', views.InfoCard.as_view(), {'list_type': 'author'}, name='author'),
-    path('b_list', views.BookList.as_view(), name='book'),
+    path('search_book/', views.SearchBook.as_view(), name='search_book'),
+    path('search_author/', views.SearchAuthor.as_view(), name='search_author'),
+    path('search_genre/', views.SearchGenre.as_view(), name='search_genre'),
 ]

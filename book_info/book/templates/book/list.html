@@ -1,9 +1,5 @@
 {% extends 'book/base.html'%}
 {% block content %}
-            <form method="GET" action="{% url 'book:book_list' %}"> # экшн это попытка увести нас от страницы, но особо это не помонает
-    {{ form }}
-    <button type="submit">Поиск</button>
-  </form>
 {% if class_name == 'book_list' %}
 <table class="table">
   <thead>
