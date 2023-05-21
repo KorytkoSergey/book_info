@@ -1,0 +1,35 @@
+{% extends 'reader/base.html'%}
+{% block content %}
+    <form method="GET">
+    {{ form }}
+    <button type="submit">Поиск</button>
+  </form>
+ <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">номер читательского билета</th>
+      <th scope="col">Имя</th>
+      <th scope="col">Фамилия</th>
+      <th scope="col">Дата Рождения</th>
+      <th scope="col">slug</th>
+      <th scope="col">Обновить</th>
+      <th scope="col">Удалить</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for reader in reader_list %}
+  <tr>
+      <th scope="row">{{ reader.id }}</th>
+      <td>{{reader.name}}</td>
+      <td>{{reader.surname}}</td>
+      <td>{{reader.date_birth}}</td>
+      <td>{{reader.slug}}</td>
+      <td><a href="{% url 'reader:reader_update' slug=reader.slug %}">Обновить</a></td>
+      <td><a href="{% url 'reader:reader_del' slug=reader.slug %}">Удалить</a></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+  </body>
+{% endblock %}

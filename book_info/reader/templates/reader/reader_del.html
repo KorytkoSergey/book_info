@@ -1,0 +1,10 @@
+{% extends 'reader/base.html'%}
+{% block content %}
+<form action="{% url 'reader:reader_del' slug=reader.slug %}" method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <p>Удалить читателя {{ reader.name }} {{ reader.surname }}?</p>
+    <button type="submit">Удалить</button>
+    <button type="reset">Отмена</button>
+</form>
+{% endblock %}

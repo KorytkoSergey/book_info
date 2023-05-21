@@ -1,6 +1,6 @@
 {% extends 'reader/base.html'%}
 {% block content %}
-<form action="{% url 'reader:reader_create' %}" method="POST">
+<form action="{% url 'reader:reader_update' %}" method="POST">
     {% csrf_token %}
     {{ form }}
     <button type="submit">Добавить</button>

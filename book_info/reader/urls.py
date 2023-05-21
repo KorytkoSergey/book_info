@@ -6,5 +6,8 @@ app_name = 'reader'
 
 urlpatterns = [
     path('reader_create/', views.ReaderCreate.as_view(), name='reader_create'),
+    path('reader_list/', views.SearchReader.as_view(), name='reader_list'),
+    path('reader_update/<slug:slug>/', views.ReaderUpdate.as_view(), name='reader_update'),
+    path('reader_del/<slug:slug>/', views.ReaderDelete.as_view(), name='reader_del'),
 
 ]
