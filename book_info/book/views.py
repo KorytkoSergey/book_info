@@ -1,4 +1,4 @@
-from book import models, forms
+from book import models, forms, filters
 from django.db.models import Q
 from django.views.generic import DetailView, ListView, CreateView
 from .models import Genre, Author, Book
@@ -83,32 +83,33 @@ class SearchBook(TitleMixin, ListView):
     model = models.Book
     template_name = 'book/search_book.html'
     title = 'Список книг'
+    def get_filters(self):
+        return filters.BookFilter(self.request.GET)
 
     def get_queryset(self):
-        title = self.request.GET.get('title')
-        year_publishing = self.request.GET.get('year_publishing')
-        publishing_house = self.request.GET.get('publishing_house')
-        author = self.request.GET.get('author')
-        qs = models.Book.objects.all()
-        filter_q = Q()
-        if title or year_publishing or publishing_house or author:
-            if title:
-                filter_q |= Q(title__icontains=title)
-            if year_publishing:
-                filter_q |= Q(year_publishing=year_publishing)
-            if publishing_house:
-                filter_q |= Q(publishing_house__icontains=publishing_house)
-            if author:
-                author_parts = author.split()
-                for part in author_parts:
-                    filter_q |= Q(author_id__name__icontains=part)
-                    filter_q |= Q(author_id__surname__icontains=part)
-        return qs.filter(filter_q)
+        # title = self.request.GET.get('title')
+        # year_publishing = self.request.GET.get('year_publishing')
+        # publishing_house = self.request.GET.get('publishing_house')
+        # author = self.request.GET.get('author')
+        # qs = models.Book.objects.all()
+        # filter_q = Q()
+        # if title or year_publishing or publishing_house or author:
+        #     if title:
+        #         filter_q |= Q(title__icontains=title)
+        #     if year_publishing:
+        #         filter_q |= Q(year_publishing=year_publishing)
+        #     if publishing_house:
+        #         filter_q |= Q(publishing_house__icontains=publishing_house)
+        #     if author:
+        #         author_parts = author.split()
+        #         for part in author_parts:
+        #             filter_q |= Q(author_id__name__icontains=part)
+        #             filter_q |= Q(author_id__surname__icontains=part)
+        return self.get_filters().qs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = forms.BookSearch(self.request.GET or None)
-        print(context)
+        context['filter'] = self.get_filters()
         return context
 
 

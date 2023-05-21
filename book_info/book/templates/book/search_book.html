@@ -1,7 +1,7 @@
 {% extends 'book/base.html'%}
 {% block content %}
     <form method="GET">
-    {{ form }}
+    {{ filter.form.as_p }}
     <button type="submit">Поиск</button>
   </form>
 <table class="table">

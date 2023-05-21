@@ -1,4 +1,4 @@
-{% extends 'reader/base.html'%}
+{% extends 'book/base.html'%}
 {% block content %}
 <form action="{% url 'reader:reader_del' slug=reader.slug %}" method="POST">
     {% csrf_token %}

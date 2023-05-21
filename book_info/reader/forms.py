@@ -17,4 +17,7 @@ class ReaderSearch(forms.Form):
 
         return cleaned_data
 
-
+class ReaderCreate(forms.ModelForm):
+    class Meta:
+        model = models.Reader
+        fields = '__all__'

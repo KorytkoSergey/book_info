@@ -24,6 +24,14 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{% url 'book:genre_list' %}">Жанры</a>
         </li>
+        {% if request.user.is_superuser %}
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'reader:reader_create' %}">Добавить читателя</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'reader:reader_list' %}">Список читателей</a>
+        </li>
+        {% endif %}
       </ul>
       <form class="d-flex" method="get" role="search">
         <input class="form-control me-2" name="title" type="search" placeholder="Search" aria-label="Search">

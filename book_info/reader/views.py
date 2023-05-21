@@ -19,7 +19,7 @@ class TitleMixin:
 class ReaderCreate(TitleMixin, CreateView):
     model = models.Reader
     template_name = 'reader/reader_create.html'
-    fields = '__all__'
+    form_class = forms.ReaderCreate
     success_url = reverse_lazy('reader:reader_list')
 
 class SearchReader(TitleMixin, ListView):
