@@ -4,13 +4,14 @@ from faker import Factory, Faker
 from book import models
 
 factory_ru = Factory.create('ru-RU')
+factory_en = Factory.create('en_US')
 
 class Author(factory.django.DjangoModelFactory):
     author_id = factory_ru.random_int()
     name = factory_ru.word()
     surname = factory_ru.word()
     date_birth = factory_ru.date()
-    slug = factory_ru.word()
+    slug = factory_en.word()
 
     class Meta:
         model = models.Author
@@ -26,7 +27,7 @@ class Book(factory.django.DjangoModelFactory):
     book_id = factory_ru.random_int()
     author_id = factory.SubFactory(Author)
     title = factory_ru.word()
-    slug = factory_ru.word()
+    slug = factory_en.word()
     publishing_house = factory_ru.word()
     year_publishing = factory_ru.random_digit_not_null()
 
