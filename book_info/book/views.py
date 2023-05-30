@@ -1,5 +1,6 @@
 from book import models, forms, filters
 from django.db.models import Q
+from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, CreateView
 from .models import Genre, Author, Book
 
@@ -151,4 +152,10 @@ class SearchGenre(TitleMixin, ListView):
         context['form'] = forms.BookSearch(self.request.GET or None)
         print(context)
         return context
+
+class BookCreate(TitleMixin, CreateView):
+    model = models.Book
+    template_name = 'book/book_create.html'
+    form_class = forms.BookCreate
+    success_url = reverse_lazy('book:book_list')
 

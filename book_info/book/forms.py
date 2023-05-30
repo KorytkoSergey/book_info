@@ -12,3 +12,8 @@ class BookSearch(forms.Form):
         author = self.cleaned_data['author']
         if author.isdigit():
             raise forms.ValidationError('Среди писателей реперов нет. Используй буквы')
+
+class BookCreate(forms.ModelForm):
+    class Meta:
+        model = models.Book
+        fields = '__all__'

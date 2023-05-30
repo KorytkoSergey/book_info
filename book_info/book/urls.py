@@ -14,5 +14,6 @@ urlpatterns = [
     path('search_book/', views.SearchBook.as_view(), name='search_book'),
     path('search_author/', views.SearchAuthor.as_view(), name='search_author'),
     path('search_genre/', views.SearchGenre.as_view(), name='search_genre'),
+    path('book_create/', views.BookCreate.as_view(), name='book_create'),
     path('', include('reader.urls', namespace='reader')),
 ]

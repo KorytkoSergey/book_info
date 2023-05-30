@@ -1,0 +1,27 @@
+{% extends 'book/base.html'%}
+{% block content %}
+<form action="{% url 'book:book_create' %}" method="POST">
+    {% csrf_token %}
+    {{ form.title.label_tag }}
+    {{ form.title }}
+    {{ form.title.errors }}
+    {{ form.slug.label_tag }}
+    {{ form.slug }}
+    {{ form.slug.errors }}
+    {{ form.author_id.label_tag }}
+    {{ form.author_id }}
+    {{ form.author_id.errors }}
+    {{ form.genre_id.label_tag }}
+    {{ form.genre_id }}
+    {{ form.genre_id.errors }}
+    {{ form.publishing_house.label_tag }}
+    {{ form.publishing_house }}
+    {{ form.publishing_house.errors }}
+    {{ form.year_publishing.label_tag }}
+    {{ form.year_publishing }}
+    {{ form.year_publishing.errors }}
+
+    <button type="submit">Добавить</button>
+</form>
+{% endblock %}
+}
