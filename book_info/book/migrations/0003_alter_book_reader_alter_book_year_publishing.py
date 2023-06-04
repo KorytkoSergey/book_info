@@ -16,11 +16,13 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='book',
             name='reader',
-            field=models.ForeignKey(blank=True,
-                                    null=True,
-                                    on_delete=django.db.models.deletion.CASCADE,
-                                    related_name='reader_book',
-                                    to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name='reader_book',
+                to=settings.AUTH_USER_MODEL),
+
         ),
         migrations.AlterField(
             model_name='book',
