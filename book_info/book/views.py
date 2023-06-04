@@ -1,5 +1,5 @@
 from book import models, forms, filters
-from django.db.models import Q
+# from django.db.models import Q
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, CreateView
 from .models import Genre, Author, Book
@@ -66,7 +66,9 @@ class InfoCard(TitleMixin, DetailView):
         if list_type == 'author':
             author = self.get_object()
             context['book_list'] = author.author_book.all()
-            genre_list = set(Genre.objects.filter(genre_book__author_id=author))
+            genre_list = set(
+                Genre.objects.filter(
+                    genre_book__author_id=author))
             context['genre_list'] = genre_list
         elif list_type == 'book':
             book = self.get_object()

@@ -19,7 +19,9 @@ class AuthorTest(TestCase):
         self.author = factories.Author()
 
     def test_detail(self):
-        response = self.client.get(reverse('book:author', kwargs={'slug': self.author.slug}))
+        response = self.client.get(
+            reverse('book:author',
+                    kwargs={'slug': self.author.slug}))
         self.assertEqual(response.status_code, 200)
 
 
