@@ -5,6 +5,7 @@ from reader import models, forms
 from django.shortcuts import redirect
 from django.urls import reverse
 
+
 class TitleMixin:
     title = None
 
@@ -16,11 +17,13 @@ class TitleMixin:
         context['title'] = self.get_title()
         return context
 
+
 class ReaderCreate(TitleMixin, CreateView):
     model = models.Reader
     template_name = 'reader/reader_create.html'
     form_class = forms.ReaderCreate
     success_url = reverse_lazy('reader:reader_list')
+
 
 class SearchReader(TitleMixin, ListView):
     model = models.Reader
@@ -39,11 +42,13 @@ class SearchReader(TitleMixin, ListView):
         context['form'] = forms.ReaderSearch(self.request.GET or None)
         return context
 
+
 class ReaderUpdate(TitleMixin, UpdateView):
     model = models.Reader
     template_name = 'reader/reader_create.html'
     fields = '__all__'
     success_url = reverse_lazy('reader:reader_list')
+
 
 class ReaderDelete(TitleMixin, DeleteView):
     model = models.Reader

@@ -84,6 +84,7 @@ class SearchBook(TitleMixin, ListView):
     model = models.Book
     template_name = 'book/search_book.html'
     title = 'Список книг'
+
     def get_filters(self):
         return filters.BookFilter(self.request.GET)
 
@@ -153,9 +154,9 @@ class SearchGenre(TitleMixin, ListView):
         print(context)
         return context
 
+
 class BookCreate(TitleMixin, CreateView):
     model = models.Book
     template_name = 'book/book_create.html'
     form_class = forms.BookCreate
     success_url = reverse_lazy('book:book_list')
-

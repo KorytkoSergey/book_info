@@ -39,9 +39,11 @@ class Migration(migrations.Migration):
                 ('slug', models.SlugField(max_length=255, unique=True)),
                 ('publishing_house', models.CharField(max_length=255, verbose_name='Издательство')),
                 ('year_publishing', models.DateField(blank=True, null=True, verbose_name='Год издания')),
-                ('author_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='author_book', to='book.author')),
+                ('author_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                                related_name='author_book', to='book.author')),
                 ('genre_id', models.ManyToManyField(related_name='genre_book', to='book.genre')),
-                ('reader', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='reader_book', to=settings.AUTH_USER_MODEL)),
+                ('reader', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                             related_name='reader_book', to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]

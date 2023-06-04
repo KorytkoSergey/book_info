@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class Author(models.Model):
     author_id = models.AutoField(primary_key=True)
     name = models.CharField('Имя', max_length=255)

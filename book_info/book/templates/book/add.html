@@ -1,6 +1,6 @@
 {% extends 'lib/base.html'%}
 {% block content %}
-<form action="{% url 'lib:author_create' %}" method="POST">
+<!--<form action="{% url 'lib:author_create' %}" method="POST">-->
     {% csrf_token %}
     {{ form.name.label_tag }}
     {{ form.name }}
@@ -12,5 +12,5 @@
     {{ form.slug }}
     {{ form.first_name.errors }}
     <button type="submit">Добавить</button>
-</form>
+<!--</form>-->
 {% endblock %}

@@ -5,6 +5,7 @@ from reader import models
 
 factory_ru = Factory.create('ru-RU')
 
+
 class Reader(factory.django.DjangoModelFactory):
     name = factory_ru.word()
     surname = factory_ru.word()
