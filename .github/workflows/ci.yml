@@ -29,7 +29,7 @@ jobs:
 
       - name: Run flake8
         run: | 
-          flake8 book_info/book
+          flake8 book_info/book, book_info/reader
 
   build: 
     name: Build and push
@@ -51,6 +51,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: .
+          context: book_info/
           push: true
           tags: ${{ secrets.DOCKERHUB_REPOSITORY }}
