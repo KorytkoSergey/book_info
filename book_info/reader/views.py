@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -73,3 +73,7 @@ class UserLogin(TitleMixin, View):
 
     def get(self, request):
         return render(request, self.template_name)
+
+def user_logout(request):
+    logout(request)
+    return redirect('/index')

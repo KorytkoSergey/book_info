@@ -10,5 +10,6 @@ urlpatterns = [
     path('reader_update/<slug:slug>/', views.ReaderUpdate.as_view(), name='reader_update'),
     path('reader_del/<slug:slug>/', views.ReaderDelete.as_view(), name='reader_del'),
     path('login/', views.UserLogin.as_view(), name='login'),
+    path('logout/', views.user_logout, name='logout'),
 
 ]
