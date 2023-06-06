@@ -1,5 +1,8 @@
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.views import LoginView
 from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from reader import models, forms
 from django.shortcuts import redirect
@@ -54,3 +57,19 @@ class ReaderDelete(TitleMixin, DeleteView):
     model = models.Reader
     template_name = 'reader/reader_del.html'
     success_url = reverse_lazy('reader:reader_list')
+
+
+class UserLogin(TitleMixin, View):
+    template_name = 'reader/login.html'
+
+    def post(self, request):
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('/index')
+        return render(request, self.template_name)
+
+    def get(self, request):
+        return render(request, self.template_name)

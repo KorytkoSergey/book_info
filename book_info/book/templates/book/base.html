@@ -36,9 +36,11 @@
         </li>
         {% endif %}
       </ul>
-      <form class="d-flex" method="get" role="search">
-        <input class="form-control me-2" name="title" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+      <form class="container-fluid justify-content-start">
+     <a href="{% url 'reader:login' %}" class="btn btn-outline-success me-2">Войти</a>
+
+
+        <button class="btn btn-outline-success me-2" type="button">Main button</button>
       </form>
     </div>
   </div>
