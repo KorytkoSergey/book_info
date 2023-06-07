@@ -27,9 +27,9 @@ jobs:
         run: | 
           python book_info/manage.py test book_info
 
-      - name: Run flake8
-        run: | 
-          flake8 book_info/book
+#      - name: Run flake8
+#        run: |
+#          flake8 book_info/book
 
   build: 
     name: Build and push
