@@ -6,50 +6,44 @@
     <title>Book Info</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
   </head>
-  <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/index">Book Info</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'book:book_list' %}"> Книги</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'book:author_list' %}">Авторы</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'book:genre_list' %}">Жанры</a>
-        </li>
+<body>
+<header class="p-3 text-bg-dark">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="/index"></use></svg>
+        </a>
+
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="{% url 'book:book_list' %}" class="nav-link px-2 text-white">Книги</a></li>
+          <li><a href="{% url 'book:author_list' %}" class="nav-link px-2 text-white">Авторы</a></li>
+          <li><a href="{% url 'book:genre_list' %}" class="nav-link px-2 text-white">Жанры</a></li>
+          {% if request.user.is_superuser %}
+          <li><a href="{% url 'reader:reader_create' %}" class="nav-link px-2 text-white">Добавить читателя</a></li>
+          <li><a href="{% url 'book:book_create' %}" class="nav-link px-2 text-white">Добавить книгу</a></li>
+          <li><a href="{% url 'reader:reader_list' %}" class="nav-link px-2 text-white">Список читателей</a></li>
+          {% endif %}
+        </ul>
         {% if request.user.is_superuser %}
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'reader:reader_create' %}">Добавить читателя</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'book:book_create' %}">Добавить книгу</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'reader:reader_list' %}">Список читателей</a>
-        </li>
-        {% endif %}
-      </ul>
-       {% if request.user.is_superuser %}
-      <form class="container-fluid justify-content-start">
-     <a href="{% url 'reader:logout' %}" class="btn btn-outline-success me-2">Выйти</a>
-      </form>
-      {% else %}
-      <form class="container-fluid justify-content-start">
-     <a href="{% url 'reader:login' %}" class="btn btn-outline-success me-2">Войти</a>
-      </form>
-      {% endif %}
+        <div class="text-end">
+         <form method="POST" action="{% url 'reader:logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-light me-2">Выйти</button>
+        </form>
+          {% else %}
+          <form method="POST" action="{% url 'reader:login' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-light me-2">Войти</button>
+            </form>
+          {% endif %}
+        </div>
+      </div>
     </div>
-  </div>
-</nav>
+  </header>
+    <div class="text-bg-light p-3">
     {% block content %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     {% endblock %}
   </body>
+</div>
 </html>

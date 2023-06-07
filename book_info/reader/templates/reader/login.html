@@ -1,8 +1,17 @@
+{% extends 'book/base.html'%}
+{% block content %}
 <form method="post" action="{% url 'reader:login' %}">
-  {% csrf_token %}
-  <label for="username">Имя пользователя:</label>
-  <input type="text" id="username" name="username">
-  <label for="password">Пароль:</label>
-  <input type="password" id="password" name="password">
-  <button type="submit">Войти</button>
+    {% csrf_token %}
+    <h1 class="h3 mb-3 fw-normal">Пожалуйста, введите ваш логин и пароль</h1>
+
+    <div class="form-floating">
+        <input type="text" name="username" class="form-control" id="floatingInput" placeholder="Login">
+        <label for="floatingInput">Ваш логин</label>
+    </div>
+    <div class="form-floating">
+        <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+        <label for="floatingPassword">Ваш пароль</label>
+    </div>
+    <button class="btn btn-primary w-100 py-2" type="submit">Войти</button>
 </form>
+{% endblock %}
