@@ -4,7 +4,7 @@ from api import views
 
 urlpatterns = [
     path('api_book/', views.BookList.as_view()),
-    path('api_author/', views.AuthorDetail.as_view()),
+    path('api_author/<pk>', views.AuthorDetail.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
