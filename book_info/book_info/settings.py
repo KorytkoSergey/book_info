@@ -81,8 +81,12 @@ WSGI_APPLICATION = 'book_info.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'book_info_db',  # Имя БД
+        'USER': 'postgres',      # Пользователь БД
+        'PASSWORD': 'postgres',  # Пароль
+        'HOST': 'localhost',      # Адрес сервера БД
+        'PORT': '5432',           # Порт PostgreSQL
     }
 }
 
