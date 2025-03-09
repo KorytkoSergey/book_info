@@ -1,3 +1,5 @@
 my_env/
 .env
 .vscode/
+book_info_2.0/
+.book_env/

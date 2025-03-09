@@ -1,53 +1,32 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-
 class Author(models.Model):
-    author_id = models.AutoField(primary_key=True)
-    name = models.CharField('Имя', max_length=255)
-    surname = models.CharField('Фамилия', max_length=255)
-    date_birth = models.DateField('Дата рождения', blank=True, null=True)
-    slug = models.SlugField(
-        max_length=255,
-        unique=True,
-        null=False,
-        blank=False)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
 
     def __str__(self):
-        return (self.name + ' ' + self.surname)
-
+        return f"{self.first_name} {self.last_name}"
 
 class Genre(models.Model):
-    genre_id = models.AutoField(primary_key=True)
-    name = models.CharField('Жанр', max_length=255)
+    name = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
         return self.name
 
-
 class Book(models.Model):
-    book_id = models.AutoField(primary_key=True)
-    title = models.CharField('Название', max_length=255)
-    slug = models.SlugField(max_length=255, unique=True)
-    author_id = models.ForeignKey(
-        Author,
-        on_delete=models.CASCADE,
-        related_name='author_book')
-    genre_id = models.ManyToManyField(
-        Genre,
-        related_name='genre_book')
-    publishing_house = models.CharField(
-        'Издательство',
-        max_length=255)
-    year_publishing = models.IntegerField(
-        'Год издания',
-        blank=True,
-        null=True)
-    reader = models.ForeignKey(
-        User, on_delete=models.CASCADE,
-        related_name='reader_book',
-        blank=True,
-        null=True)
+    title = models.CharField(max_length=255)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    published_year = models.PositiveIntegerField()
+    isbn = models.CharField(max_length=13, unique=True)
+    quantity = models.PositiveIntegerField(default=1)
 
     def __str__(self):
         return self.title
+
+class BookGenre(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('book', 'genre')

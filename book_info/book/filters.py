@@ -3,7 +3,7 @@ import django_filters as filters
 from book import models
 
 
-class BookFilter(filters.FilterSet):
+class BookFilter(django_filters.FilterSet):
     class Meta:
-        model = models.Book
-        fields = ['title', 'author_id', 'year_publishing', 'genre_id', ]
+        model = Book
+        fields = ['title', 'author', 'published_year', 'isbn', 'quantity']
